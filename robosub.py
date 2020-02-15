@@ -6,7 +6,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def video_to_photo():
-	cam = cv2.VideoCapture("tues_7.mp4") 
+	cam = cv2.VideoCapture("test_clip.mp4") 
 	  
 	try: 
 	      
@@ -47,10 +47,10 @@ def video_to_photo():
 
 def edge_detect():
 
-	for value in range(90,105):
+	for value in range(90,91):
 		img = cv2.imread("data/frame%d.jpg"%value)
 		print(type(img))
-		img = cv2.blur(img,(15,15))
+		img = cv2.GaussianBlur(img,(15,15), 0)
 		print((img).shape)
 
 		edges = cv2.Canny(img,20,20)
@@ -64,5 +64,5 @@ def edge_detect():
 		#plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
 		#plt.show()
 		#plt.savefig('data/frame%d.png'%value)
-
+#video_to_photo()
 edge_detect()
