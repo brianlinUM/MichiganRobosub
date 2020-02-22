@@ -47,7 +47,7 @@ def video_to_photo():
 
 def edge_detect():
 
-	for value in range(90,91):
+	for value in range(90,105):
 		img = cv2.imread("data/frame%d.jpg"%value)
 		print(type(img))
 		img = cv2.GaussianBlur(img,(15,15), 0)

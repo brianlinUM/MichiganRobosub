@@ -2,7 +2,7 @@
 import numpy as np
 import cv2
 
-__FRAME_CENTER = (960,540)
+__FRAME_CENTER = (960,540) # width x height = x, y
 
 # Takes in lines and outputs their mid-points
 def calc_mid_points(lines):
