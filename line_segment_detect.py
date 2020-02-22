@@ -74,8 +74,8 @@ class HoughBundler:
         min_threshold = 200  # minimal of votes
         line_segments = cv2.HoughLinesP(edges, rho, angle, min_threshold, 
                                         np.array([]), minLineLength=75, maxLineGap=20)
-        print(edges.shape)
-        print(line_segments)
+        #print(edges.shape)
+        #print(line_segments)
 
         return self.cut_top(line_segments)
         #return line_segments
@@ -91,8 +91,8 @@ class HoughBundler:
         cv2.imshow("line_segs", line_image)
         #cv2.waitKey(0)
         line_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
-        line_image = cv2.circle(line_image, (960, mid), 5, 255, thickness=5)
-        line_image = cv2.circle(line_image, (960, mid - 20), 5, 125, thickness=5)
+        #line_image = cv2.circle(line_image, (960, mid), 5, 255, thickness=5)
+        #line_image = cv2.circle(line_image, (960, mid - 20), 5, 125, thickness=5)
         after = centering.draw_heading(line_image, lines)
         cv2.imshow("gate lines", after)
         #after_img = Image.fromarray(after)
