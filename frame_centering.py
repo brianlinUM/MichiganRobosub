@@ -1,7 +1,8 @@
-# MSubs 2020, maintained by Brian the dog
+# MSubs 2020
 import numpy as np
 import cv2
 from math import sqrt
+from scipy.spatial import distance
 
 __FRAME_CENTER = (960,540) # width x height = x, y
 
@@ -38,6 +39,7 @@ def calc_heading(lines):
 def draw_heading(frame, lines):
 	mid_points = calc_mid_points(lines)
 	gate_center = calc_points_center(mid_points)
-	
+	if(distance.euclidean(gate_center, __FRAME_CENTER) < 30):
+		print("@@@@@@@@   CHARGE!!!!!!")
 	cv2.arrowedLine(frame, __FRAME_CENTER, gate_center, 255 , 2)
 	return frame

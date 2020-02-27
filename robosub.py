@@ -52,7 +52,7 @@ def video_to_photo():
 # camera processing.
 def edge_detect():
 
-	for value in range(0, 105):
+	for value in range(200, 400):
 		img = cv2.imread("data/frame%d.jpg"%value)
 		print(type(img))
 		hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
