@@ -2,6 +2,7 @@
 import cv2
 import os
 from PIL import Image
+import line_segment_detect as segDetect
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -11,36 +12,36 @@ def video_to_photo():
 	cam = cv2.VideoCapture("test_clip.mp4") 
 	  
 	try: 
-	      
-	    # creating a folder named data 
-	    if not os.path.exists('data'): 
-	        os.makedirs('data') 
+		  
+		# creating a folder named data 
+		if not os.path.exists('data'): 
+			os.makedirs('data') 
 	  
 	# if not created then raise error 
 	except OSError: 
-	    print ('Error: Creating directory of data') 
+		print ('Error: Creating directory of data') 
 	  
 	# frame 
 	currentframe = 0
 	  
 	while(True): 
-	      
-	    # reading from frame 
-	    ret,frame = cam.read() 
+		  
+		# reading from frame 
+		ret,frame = cam.read() 
 	  
-	    if ret: 
-	        # if video is still left continue creating images 
-	        name = './data/frame' + str(currentframe) + '.jpg'
-	        print ('Creating...' + name) 
+		if ret: 
+			# if video is still left continue creating images 
+			name = './data/frame' + str(currentframe) + '.jpg'
+			print ('Creating...' + name) 
 	  
-	        # writing the extracted images 
-	        cv2.imwrite(name, frame) 
+			# writing the extracted images 
+			cv2.imwrite(name, frame) 
 	  
-	        # increasing counter so that it will 
-	        # show how many frames are created 
-	        currentframe += 1
-	    else: 
-	        break
+			# increasing counter so that it will 
+			# show how many frames are created 
+			currentframe += 1
+		else: 
+			break
 	  
 	# Release all space and windows once done 
 	cam.release() 
@@ -63,19 +64,26 @@ def edge_detect():
 		out2 = cv2.addWeighted(v_channel, 1.5, out1, -0.5, 0);
 
 		# Remove salt and pepper noise
-		median_blurred = cv2.medianBlur(out2, 15)
+		median_blurred = cv2.medianBlur(out2, 11)
 		# Remove details
 		combine_blurred = cv2.GaussianBlur(median_blurred, (5,5), 0 )
 
 		print((img).shape)
 
-		edges = cv2.Canny(combine_blurred, 20, 20)
+		edges = cv2.Canny(combine_blurred, 14, 14)
 		#cv2.imshow("modified", edges)
 
 		#cv2.waitKey(0)
 		
-		img = Image.fromarray(edges)
-		img.save("data/edge_frame%d.jpg"%value)
+		#img = Image.fromarray(edges)
+		#img.save("data/edge_frame%d.jpg"%value)
+		
+		line_segs = segDetect.line_segment_detect(edges)
+		horizontal_list, vertical_list, average_bar_height = segDetect.filter_line_segments(line_segs)
+		cut_vertical_list = segDetect.cut_top(horizontal_list, vertical_list, average_bar_height)
+		
+		segDetect.display_lines(edges, horizontal_list, cut_vertical_list)
+
 
 #video_to_photo()
 edge_detect()
