@@ -47,15 +47,29 @@ def video_to_photo():
 
 def edge_detect():
 
-	for value in range(90,105):
+	for value in range(0, 105):
 		img = cv2.imread("data/frame%d.jpg"%value)
 		print(type(img))
-		img = cv2.GaussianBlur(img,(15,15), 0)
+		
+
+		
+		median_blurred = cv2.medianBlur(img, 15)
+		#gaussian_blurred = cv2.GaussianBlur(img,(15,15), 0)
+		#combine_blurred = cv2.GaussianBlur(median_blurred, (5,5), 0 )
+		combine_blurred = cv2.GaussianBlur(median_blurred, (5,5), 0 )
+
 		print((img).shape)
 
-		edges = cv2.Canny(img,20,20)
+		combine_blurred = cv2.Canny(combine_blurred, 22, 22)
+		cv2.imshow("combined blur", combine_blurred)
+		cv2.imshow("combined blur2", combine_blurred)
+
+		cv2.waitKey(0)
+
+		#edges = cv2.Canny(img,20,20)
 		#scipy.misc.imsave("data/edge_frame%d.jpg"%value, edges)
-		img = Image.fromarray(edges)
+		
+		img = Image.fromarray(combine_blurred)
 		img.save("data/edge_frame%d.jpg"%value)
 
 		#plt.subplot(121),plt.imshow(img,cmap = 'hsv')
