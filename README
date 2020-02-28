@@ -1,0 +1,37 @@
+@@@ MSub 2020 @@@
+
+Gate Guiding Algorithm
+Given camera input, guides the robot to the center of the gate by calculating the heading
+
+To run:
+	python robosub.py
+
+To use real-time camera input instead of file input, would have to change how robosub.py edge_detect function gets its data
+i.e. move it into the while loop in video_to_photo
+
+Make sure to suppress image show as necessary in line_segments_detect.py
+Algo only works well when entirety of gate is seen. No object tracking implemented yet.
+
+
+
+
+Current algo outline:
+
+pre-processing:
+	remove sharpen image, remove noise, then highlight edges
+
+line-segment detection:
+	use Hough Lines to consolidate detected edges into line representations
+
+trimming:
+	remove or trim lines that are too high (low y-value) to reduce affect of under-surface reflection
+
+clustering:
+	cluster line-segments into four parts: horizontal bar (filtered out by angle thresholding), (through k-means):
+	two side-bars, and mid bar.
+
+line consolidation:
+	create a single line to represent each cluster
+
+heading calculation:
+	use single-line representations to calculate heading from frame center.
