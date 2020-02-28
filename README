@@ -9,7 +9,7 @@ To run:
 To use real-time camera input instead of file input, would have to change how robosub.py edge_detect function gets its data
 i.e. move it into the while loop in video_to_photo
 
-Make sure to suppress image show as necessary in line_segments_detect.py
+Make sure to suppress image display (cv2.imshow() ) as necessary in line_segments_detect.py
 Algo only works well when entirety of gate is seen. No object tracking implemented yet.
 
 
@@ -18,7 +18,7 @@ Algo only works well when entirety of gate is seen. No object tracking implement
 Current algo outline:
 
 pre-processing:
-	remove sharpen image, remove noise, then highlight edges
+	sharpen image, remove noise, then highlight edges
 
 line-segment detection:
 	use Hough Lines to consolidate detected edges into line representations
