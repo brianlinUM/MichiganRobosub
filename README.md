@@ -6,9 +6,17 @@ autonomous underwater robot capable of navigating through an obstacle course and
 complete various tasks while submerged and with no human input. We aim to compete
 in the RoboSub competition: https://robonation.org/programs/robosub/
 
+<img src="https://github.com/brianlinUM/MichiganRobosub/blob/master/images/test_robosub.jpg" width="30%" alt="Our testing platform sub">
+
+<em>Image: Our testing platform submarine.</em>
+
 ## Gate Navigation Algorithm
 Given camera input, guides the robot to the center of the gate by calculating the target
 heading using computer vision techniques.
+
+<img src="https://github.com/brianlinUM/MichiganRobosub/blob/master/images/contour_detection.png" width="40%" height="10%" alt="Heading calculation with contour detection">
+
+<em>Image: Calculated headings (blue arrow) from camera center (red dot) to target  using contour detection to find orange gate poles. Bounding boxes are shown in green with each center marked by a green dot.</em>
 
 To run:
 	python robosub.py
@@ -40,3 +48,12 @@ target calculation:
 cam_test.py: tests if camera device is working in opencv.
 
 mask_tuner.py: interactive tool to tune color mask thresholds.
+
+<img src="https://github.com/brianlinUM/MichiganRobosub/blob/master/images/color_correction.jpg" width="60%" height="20%" alt="Color correction">
+
+<em>Underwater color correction on test footage. After enhancement the gate outlines are much clearer.</em>
+
+
+<img src="https://github.com/brianlinUM/MichiganRobosub/blob/master/images/edge_detection.jpg" width="60%" height="20%" alt="Edge detection">
+
+<em>Earlier method of gate detection using canny edge detection. During testing we discovered that edge detection isn't as robust as contour detection.</em>
